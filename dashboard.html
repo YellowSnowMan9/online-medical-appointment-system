@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — MedAppoint</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="dashboard.html" class="navbar-brand"><span>⚕</span> MedAppoint</a>
+    <div class="navbar-right">
+      <span class="navbar-user" id="nav-user-name"></span>
+      <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- ── MAIN DASHBOARD ── -->
+  <div class="dashboard">
+
+    <!-- Welcome header -->
+    <div class="dashboard-header">
+      <div>
+        <h2>Hello, <span id="welcome-name"></span> 👋</h2>
+        <span id="role-badge" class="text-muted"></span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         PATIENT DASHBOARD SECTION
+         (hidden until JS shows it)
+    ══════════════════════════════════ -->
+    <div id="patient-section" style="display:none;">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="appt-count">0</div>
+          <div class="stat-label">My Appointments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="doctor-count-stat">—</div>
+          <div class="stat-label">Available Doctors</div>
+        </div>
+      </div>
+
+      <!-- Available Doctors -->
+      <h3 style="margin-bottom:1rem; font-family:'Lora',serif; font-size:1.2rem; font-weight:400;">
+        Available Doctors
+      </h3>
+      <div id="doctor-grid" class="doctor-grid"></div>
+
+      <!-- My Appointments -->
+      <h3 style="margin:2rem 0 1rem; font-family:'Lora',serif; font-size:1.2rem; font-weight:400;">
+        My Appointments
+      </h3>
+      <div id="patient-appointments" class="appointment-list"></div>
+
+    </div>
+
+    <!-- ══════════════════════════════════
+         DOCTOR DASHBOARD SECTION
+         (hidden until JS shows it)
+    ══════════════════════════════════ -->
+    <div id="doctor-section" style="display:none;">
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="patient-count">0</div>
+          <div class="stat-label">Booked Patients</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="today-stat">Today</div>
+          <div class="stat-label">Schedule</div>
+        </div>
+      </div>
+
+      <!-- Patient list -->
+      <h3 style="margin-bottom:1rem; font-family:'Lora',serif; font-size:1.2rem; font-weight:400;">
+        Patient List
+      </h3>
+      <div id="patient-list-container"></div>
+
+    </div>
+
+  </div><!-- /dashboard -->
+
+  <!-- ══════════════════════════════════
+       BOOKING CONFIRMATION MODAL
+  ══════════════════════════════════ -->
+  <div id="booking-modal" class="modal-overlay">
+    <div class="modal">
+      <h3>✅ Appointment Confirmed!</h3>
+      <p class="text-muted" style="margin-bottom:1rem;">Your appointment has been booked successfully.</p>
+
+      <div style="background:var(--accent-lt); border-radius:var(--radius); padding:1rem; font-size:0.9rem; line-height:2;">
+        <div><strong>Doctor:</strong> <span id="modal-doctor"></span></div>
+        <div><strong>Chamber:</strong> <span id="modal-chamber"></span></div>
+        <div><strong>Your Serial:</strong> <span id="modal-serial" style="color:var(--accent); font-weight:700;"></span></div>
+        <div><strong>Your Time:</strong> <span id="modal-time" style="color:var(--accent); font-weight:700;"></span></div>
+      </div>
+
+      <div class="modal-btns">
+        <button class="btn btn-primary btn-full" onclick="closeModal()">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close modal when clicking outside -->
+  <script>
+    document.getElementById('booking-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
+
+  <script src="script.js"></script>
+  <script>
+    initDashboard();
+
+    // Update doctor count stat after rendering
+    window.addEventListener('DOMContentLoaded', () => {
+      const statEl = document.getElementById('doctor-count-stat');
+      if (statEl) {
+        const count = (Storage.getUsers() || []).filter(u => u.role === 'doctor').length;
+        statEl.textContent = count;
+      }
+      // Set today's date in doctor stat
+      const todayEl = document.getElementById('today-stat');
+      if (todayEl) {
+        const d = new Date();
+        todayEl.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+    });
+  </script>
+</body>
+</html>

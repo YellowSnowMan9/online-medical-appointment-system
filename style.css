@@ -1,0 +1,478 @@
+/* ============================================
+   MEDICAL APPOINTMENT CENTER - STYLESHEET
+   Clean, minimal, modern design using CSS variables.
+   No frameworks — just plain CSS.
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Mulish:wght@300;400;500;600&display=swap');
+
+/* --- CSS Variables (easy to customize) --- */
+:root {
+  --bg:        #f5f4f0;
+  --surface:   #ffffff;
+  --border:    #e2dfd8;
+  --text:      #1c1c1c;
+  --muted:     #7a7a7a;
+  --accent:    #1a6b5a;       /* teal-green — medical, calm */
+  --accent-lt: #eaf3f1;
+  --danger:    #c0392b;
+  --radius:    8px;
+  --shadow:    0 2px 12px rgba(0,0,0,0.07);
+  --max:       900px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  font-size: 15px;
+  min-height: 100vh;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+h2 { font-size: 1.5rem; margin-bottom: 1.25rem; }
+h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+p  { color: var(--muted); }
+
+/* --- Links --- */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* --- Utility --- */
+.text-center { text-align: center; }
+.text-muted  { color: var(--muted); font-size: 0.875rem; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+.navbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.navbar-brand {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navbar-brand span { color: var(--accent); font-size: 1.3rem; }
+.navbar-right { display: flex; align-items: center; gap: 1rem; }
+.navbar-user {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.btn:hover { opacity: 0.85; text-decoration: none; }
+.btn:active { opacity: 0.7; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent-lt); opacity: 1; }
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1.5px solid var(--danger);
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+}
+.btn-danger:hover { background: #fdf0ef; opacity: 1; }
+.btn-sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+}
+.btn-full { width: 100%; }
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+input, select {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.9rem;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.2s;
+  width: 100%;
+  outline: none;
+}
+input:focus, select:focus {
+  border-color: var(--accent);
+}
+input::placeholder { color: #bbb; }
+
+/* Two-column form row */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* Radio toggle (Doctor / Patient) */
+.role-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.role-toggle label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.role-toggle input[type="radio"] { display: none; }
+.role-toggle input[type="radio"]:checked + label,
+.role-toggle label:has(input[type="radio"]:checked) {
+  border-color: var(--accent);
+  background: var(--accent-lt);
+  color: var(--accent);
+}
+
+/* ============================================
+   CARD
+   ============================================ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 1rem; }
+
+/* ============================================
+   ALERT / MESSAGE BOX
+   ============================================ */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: none; /* shown via JS */
+}
+.alert.show { display: block; }
+.alert-error   { background: #fdf0ef; color: var(--danger); border: 1px solid #f5c6c2; }
+.alert-success { background: var(--accent-lt); color: var(--accent); border: 1px solid #b2d8d0; }
+
+/* ============================================
+   LANDING PAGE (index.html)
+   ============================================ */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 58px);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.hero-inner { max-width: 520px; }
+.hero-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--accent-lt);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 1.5rem;
+}
+.hero h1 { margin-bottom: 1rem; }
+.hero p   { margin-bottom: 2rem; font-size: 1rem; }
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ============================================
+   AUTH PAGES (login.html / signup.html)
+   ============================================ */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 58px);
+  padding: 2rem;
+}
+.auth-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 2.25rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow);
+}
+.auth-box h2 { text-align: center; margin-bottom: 0.4rem; }
+.auth-box .auth-sub { text-align: center; margin-bottom: 1.75rem; }
+
+/* ============================================
+   DASHBOARD
+   ============================================ */
+.dashboard {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+.dashboard-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.dashboard-header h2 { margin-bottom: 0; }
+
+/* Stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+}
+.stat-card .stat-num {
+  font-family: 'Lora', serif;
+  font-size: 1.8rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.stat-card .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+/* Doctor cards grid */
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.doctor-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.doctor-card h3 { color: var(--text); }
+.doctor-card .specialization {
+  display: inline-block;
+  background: var(--accent-lt);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+.doctor-card .info-line {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.doctor-card .btn { margin-top: 1rem; width: 100%; }
+
+/* Patient appointment list */
+.appointment-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.appointment-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.appointment-item .appt-info { flex: 1; }
+.appointment-item h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 0.2rem; }
+.appointment-item .appt-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.appt-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+/* Serial badge */
+.serial-badge {
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Doctor patient list */
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.patient-table th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.patient-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.patient-table tr:last-child td { border-bottom: none; }
+.patient-table tr:hover td { background: #fafaf8; }
+
+/* Edit time input inline */
+.time-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.time-edit input[type="time"] {
+  width: auto;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+.modal h3 { margin-bottom: 1rem; }
+.modal-btns { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  .navbar { padding: 0 1rem; }
+  .dashboard { padding: 1.5rem 1rem; }
+  .doctor-grid { grid-template-columns: 1fr; }
+  .patient-table { font-size: 0.8rem; }
+  .patient-table th, .patient-table td { padding: 0.6rem 0.6rem; }
+}

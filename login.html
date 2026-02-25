@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — MedAppoint</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand"><span>⚕</span> MedAppoint</a>
+    <div class="navbar-right">
+      <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- ── LOGIN FORM ── -->
+  <div class="auth-wrapper">
+    <div class="auth-box">
+      <h2>Welcome back</h2>
+      <p class="auth-sub text-muted">Login to manage your appointments.</p>
+
+      <!-- Alert box — shown on error -->
+      <div id="alert" class="alert"></div>
+
+      <form id="login-form" novalidate>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Your password" required />
+        </div>
+
+        <div class="mt-2">
+          <button type="submit" class="btn btn-primary btn-full">Login</button>
+        </div>
+
+      </form>
+
+      <p class="text-center mt-2 text-muted">
+        Don't have an account? <a href="signup.html">Sign Up</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>initLogin();</script>
+</body>
+</html>

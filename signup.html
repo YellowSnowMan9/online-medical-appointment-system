@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — MedAppoint</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand"><span>⚕</span> MedAppoint</a>
+    <div class="navbar-right">
+      <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+    </div>
+  </nav>
+
+  <!-- ── SIGNUP FORM ── -->
+  <div class="auth-wrapper" style="padding: 2rem;">
+    <div class="auth-box" style="max-width: 500px;">
+      <h2>Create Account</h2>
+      <p class="auth-sub text-muted">Join as a Doctor or Patient.</p>
+
+      <!-- Alert box — shown on error -->
+      <div id="alert" class="alert"></div>
+
+      <form id="signup-form" novalidate>
+
+        <!-- ── ROLE SELECTION ── -->
+        <p style="font-size:0.82rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; color:#1c1c1c;">
+          I am a:
+        </p>
+        <div class="role-toggle">
+          <!-- Patient is default -->
+          <div>
+            <input type="radio" name="role" id="role-patient" value="patient" checked />
+            <label for="role-patient">🙋 Patient</label>
+          </div>
+          <div>
+            <input type="radio" name="role" id="role-doctor" value="doctor" />
+            <label for="role-doctor">🩺 Doctor</label>
+          </div>
+        </div>
+
+        <!-- ── COMMON FIELDS (both roles) ── -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Min 6 characters" required />
+          </div>
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" placeholder="Repeat password" required />
+          </div>
+        </div>
+
+        <!-- ── DOCTOR-ONLY FIELDS ── -->
+        <div id="doctor-fields" style="display:none;">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="specialization">Specialization</label>
+              <input type="text" id="specialization" placeholder="e.g. Cardiologist" />
+            </div>
+            <div class="form-group">
+              <label for="chamber">Chamber / Hospital</label>
+              <input type="text" id="chamber" placeholder="e.g. City Medical Center" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="start-time">Available From</label>
+              <input type="time" id="start-time" value="09:00" />
+            </div>
+            <div class="form-group">
+              <label for="end-time">Available Until</label>
+              <input type="time" id="end-time" value="17:00" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── PATIENT-ONLY FIELDS ── -->
+        <div id="patient-fields">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" placeholder="Your age" min="1" max="120" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="e.g. 01700000000" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-2">
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </div>
+
+      </form>
+
+      <p class="text-center mt-2 text-muted">
+        Already have an account? <a href="login.html">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>initSignup();</script>
+</body>
+</html>
